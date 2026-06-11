@@ -13,10 +13,15 @@ function decodeJwt(token: string): JwtParts {
   if (parts.length !== 3) throw new Error('JWT must have 3 parts')
 
   const decode = (part: string) => {
-    const padded = part.replace(/-/g, '+').replace(/_/g, '/').padEnd(
-      part.length + (4 - part.length % 4) % 4, '='
-    )
-    return JSON.parse(atob(padded))
+    const base64 = part.replace(/-/g, '+').replace(/_/g, '/')
+    const padding = (4 - (base64.length % 4)) % 4
+    const padded = base64 + '='.repeat(padding)
+    const binary = atob(padded)
+    const bytes = new Uint8Array(binary.length)
+    for (let i = 0; i < binary.length; i++) {
+      bytes[i] = binary.charCodeAt(i)
+    }
+    return JSON.parse(new TextDecoder().decode(bytes))
   }
 
   const header = decode(parts[0])
