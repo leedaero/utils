@@ -4,6 +4,7 @@ const tools = [
   { path: '/', label: 'JSON Viewer', icon: '{}' },
   { path: '/calc', label: 'Calculator', icon: '±' },
   { path: '/encode', label: 'Encoder', icon: '⇄' },
+  { path: '/qr', label: 'QR/Barcode Scanner', icon: '▦' },
 ]
 
 export default function Sidebar() {
