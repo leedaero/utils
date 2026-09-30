@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react'
-import { JsonView, allExpanded, defaultStyles } from 'react-json-view-lite'
-import 'react-json-view-lite/dist/index.css'
+import JsonTree from './JsonTree'
 import CopyButton from '../../components/ui/CopyButton'
 
 function parseJson(text: string): { data: unknown; error: string | null } {
@@ -64,11 +63,7 @@ export default function JsonViewer() {
         <span className="text-sm font-medium">Tree View</span>
         <div className="flex-1 overflow-auto rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 p-3 font-mono text-sm">
           {data !== null ? (
-            <JsonView
-              data={data as object}
-              shouldExpandNode={allExpanded}
-              style={defaultStyles}
-            />
+            <JsonTree data={data} />
           ) : (
             <span className="text-gray-400 text-sm">
               {error ? 'Invalid JSON' : 'Tree view will appear here'}
