@@ -41,10 +41,20 @@ function ResultCard({ result }: { result: ScanResult }) {
   )
 }
 
-export default function ResultPanel({ history }: { history: ScanResult[] }) {
+export default function ResultPanel({ history, onClear }: { history: ScanResult[]; onClear: () => void }) {
   return (
     <div className="flex flex-col gap-2 h-full">
-      <span className="text-sm font-medium">스캔 결과</span>
+      <div className="flex items-center justify-between">
+        <span className="text-sm font-medium">스캔 결과</span>
+        {history.length > 0 && (
+          <button
+            onClick={onClear}
+            className="text-xs px-2 py-1 rounded border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+          >
+            전체 삭제
+          </button>
+        )}
+      </div>
       <div className="flex-1 overflow-auto flex flex-col gap-2">
         {history.length === 0 ? (
           <span className="text-sm text-gray-400">아직 인식된 코드가 없습니다.</span>
